@@ -19,8 +19,12 @@ jobs:
           docker rm product-container || true
 
       - name: Build Docker Image
-        run: docker build -t product-image .
+        run: docker build -t product-image.
 
+      - name: Stop old container
+        run: | docker stop product-container || true
+               docker rm product-container || true
+    
       - name: Run New Container
         run: |
           docker run -d \
