@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Deploy
 
 on:
   push:
@@ -10,25 +10,16 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t product-container
 
       - name: Stop old container
         run: |
           docker stop product-container || true
           docker rm product-container || true
 
-      - name: Build Docker Image
-        run: docker build -t product-image.
-
-      - name: Stop old container
-        run: |
-         docker stop product-container || true
-         docker rm product-container || true
-    
-      - name: Run New Container
-        run: |
-          docker run -d \
-          --name product-container \
-          -p 80:80 \
-          product-image
+      - name: Run new container
+        run: docker run -d -p 8081:80 --name product-container product-container
