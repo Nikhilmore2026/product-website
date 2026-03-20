@@ -22,8 +22,9 @@ jobs:
         run: docker build -t product-image.
 
       - name: Stop old container
-        run: | docker stop product-container || true
-               docker rm product-container || true
+        run: |
+         docker stop product-container || true
+         docker rm product-container || true
     
       - name: Run New Container
         run: |
