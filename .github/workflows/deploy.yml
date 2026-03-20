@@ -22,4 +22,4 @@ jobs:
           docker rm product-container || true
 
       - name: Run new container
-        run: docker run -d -p 8081:80 --name product-container product-container
+        run: docker run -d -p 8080:80 --name product-container product-container
